@@ -5,12 +5,14 @@ import { Grid } from "react-bootstrap";
 import "./assets/styles/base.css";
 import "./assets/styles/bootstrap.css";
 
+import FeedsContainer from "./containers/feeds";
+
 export default class ReactApplication extends Component {
   render() {
     return (
       <div>
         <Grid>
-          <h1>Welcome!</h1>
+          <FeedsContainer />
         </Grid>
       </div>
     );

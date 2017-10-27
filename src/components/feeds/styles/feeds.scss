@@ -1,0 +1,62 @@
+@import "../../../assets/styles/vars.scss";
+
+.feeds-item {
+  border: 2px solid $tertiary-color;
+  border-radius: 24px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 17px;
+
+  &-image {
+  }
+
+  &-person {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  &-timestamp {
+    display: block;
+    color: $tertiary-color;
+    font-style: italic;
+    margin-bottom: 10px;
+  }
+
+  &-text {
+  }
+
+  &:not(.feeds-item-active) {
+    .feeds-item-image,
+    .feeds-item-person,
+    .feeds-item-timestamp,
+    .feeds-item-text {
+      opacity: 0.5;
+    }
+
+    .feeds-item-btn {
+      opacity: 0.7;
+    }
+  }
+}
+
+@media (min-width: $screen-xs-min) and (max-width: $screen-sm-min) {
+  .feeds-item {
+    &-image {
+      width: 150px;
+      margin-left: 30px;
+    }
+
+    &-person {
+      margin-left: 10px;
+    }
+  }
+}
+
+.feed-image {
+  padding-bottom: 10px;
+}
+
+.feed-text-area {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

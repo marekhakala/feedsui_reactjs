@@ -14,3 +14,18 @@ body {
 a {
   color: $secondary-color;
 }
+
+.btn:active,
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+    outline: none !important;
+}
+
+.btn-custom {
+  font-weight: bold;
+  border-radius: 24px !important;
+  background: $additional-color !important;
+  border: 2px solid $additional-color !important;
+  color: $white-color !important;
+}
