@@ -1,0 +1,83 @@
+@import "../../../assets/styles/vars.scss";
+
+.feed-item {
+  border: 2px solid $tertiary-color;
+  border-radius: 24px;
+  margin-top: 5px;
+  margin-bottom: 17px;
+
+  &-person {
+    font-weight: bold;
+  }
+
+  &-username {
+    color: $tertiary-color;
+    font-weight: bold;
+  }
+
+  &-content {
+    padding-top: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  &-form {
+    padding: 10px;
+  }
+}
+
+.comment-item {
+  padding-bottom: 25px;
+
+  &-image {
+  }
+
+  &-person {
+    margin: 0;
+    font-weight: bold;
+  }
+
+  &-timestamp {
+    display: block;
+    color: $tertiary-color;
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  &-text {
+  }
+
+  &-content {
+    padding: 10px;
+  }
+
+  &-horizontal-line-first {
+    margin-bottom: 25px;
+    border-bottom: 2px solid $tertiary-color;
+  }
+
+  &-horizontal-line {
+    border-bottom: 2px solid $tertiary-color;
+  }
+}
+
+@media (min-width: $screen-xs-min) and (max-width: $screen-sm-min) {
+  .comment-item {
+    &-image {
+      width: 150px;
+      margin-left: 30px;
+    }
+
+    &-person {
+      margin-left: 10px;
+    }
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .comment-item-image {
+    width: 100px;
+    margin-left: 25px;
+  }
+}

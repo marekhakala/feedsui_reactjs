@@ -7,14 +7,16 @@ export default class FeedsItemComponent extends Component {
     feed: PropTypes.shape({ text: PropTypes.string.isRequired, date: PropTypes.string.isRequired,
       person: PropTypes.shape({ firstName: PropTypes.string.isRequired,
         lastName: PropTypes.string.isRequired, avatar: PropTypes.string.isRequired }),
-        onClickFunc: PropTypes.func })
+        onClickFunc: PropTypes.func, isFeedActive: PropTypes.boolean })
   };
 
   render() {
+    const { isFeedActive } = this.props;
     const { text, date, person } = this.props.feed;
+
     return (
       <div
-        className="feeds-item">
+        className={"feeds-item " + (isFeedActive ? "feeds-item-active" : "")}>
         <Row
           className="show-grid">
           <Col
