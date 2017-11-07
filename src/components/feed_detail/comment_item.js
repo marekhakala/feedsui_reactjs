@@ -1,33 +1,37 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { Col, Row, Image, Button } from "react-bootstrap";
+const moment = require("moment");
 
-export default class FeedsItemComponent extends Component {
-  static propTypes = {
-    feed: PropTypes.shape({ text: PropTypes.string.isRequired, date: PropTypes.string.isRequired,
-      person: PropTypes.shape({ firstName: PropTypes.string.isRequired,
-        lastName: PropTypes.string.isRequired, avatar: PropTypes.string.isRequired }),
-        onClickFunc: PropTypes.func, isFeedActive: PropTypes.boolean })
-  };
+export default class CommentItem extends Component {
+  static propTypes = { feedId: PropTypes.string, comment: PropTypes.object,
+    index: PropTypes.number, removeComment: PropTypes.func.isRequired };
 
   render() {
-    const { isFeedActive } = this.props;
-    const { text, date, person } = this.props.feed;
+    if(!this.props.comment || !this.props.comment.person) {
+      return <span></span>;
+    }
+
+    const removeCommentFunc = this.props.removeComment;
+    const { text, person } = this.props.comment;
+    const dateFormatted = (person.date) ? moment(person.date).toString() : "";
+    const horizontalLine = (<div className="horizontal-line"></div>);
     return (
+    <div
+      className="comment-item">
       <div
-        className={"feeds-item " + (isFeedActive ? "feeds-item-active" : "")}>
+        className="comment-item-content">
         <Row
           className="show-grid">
           <Col
-            xs={3}
-            sm={3}
+            xs={4}
+            sm={2}
             md={2}>
             <Image
-              className="feeds-item-image"
+              className="comment-item-image"
               src={person.avatar}
               alt="Avatar photo"
-              circle
-              responsive />
+              circle responsive />
           </Col>
           <Col
             xs={4}
@@ -35,33 +39,32 @@ export default class FeedsItemComponent extends Component {
             mdHidden
             lgHidden>
             <h3
-              className="feeds-item-person">
+              className="comment-item-person">
               {person.firstName} {person.lastName}
             </h3>
           </Col>
           <Col
             xs={4}
-            sm={4}
+            sm={7}
             md={7}
             xsHidden>
             <h3
-              className="feeds-item-person">
+              className="comment-item-person">
               {person.firstName} {person.lastName}
             </h3>
             <span
-              className="feeds-item-timestamp">
-              {date}
+              className="comment-item-timestamp">
+              {dateFormatted}
             </span>
           </Col>
           <Col
-            xs={5}
-            sm={5}
+            xs={4}
+            sm={3}
             md={3}
             className="text-right">
             <Button
-              className="feeds-item-btn btn btn-custom btn-block"
-              onClick={this.props.onClickFunc}>
-              DETAIL
+              className="comment-item-btn btn btn-custom" onClick={() => { removeCommentFunc(this.props.feedId,   this.props.comment._id) }}>
+              X
             </Button>
           </Col>
         </Row>
@@ -74,8 +77,8 @@ export default class FeedsItemComponent extends Component {
             mdHidden
             lgHidden>
             <span
-              className="feeds-item-timestamp">
-              {date}
+              className="comment-item-timestamp">
+              {dateFormatted}
             </span>
           </Col>
         </Row>
@@ -84,15 +87,17 @@ export default class FeedsItemComponent extends Component {
           <Col
             xs={8}
             sm={10}
-            xsOffset={3}
+            xsOffset={4}
             smOffset={2}>
             <p
-              className="feeds-item-text">
+              className="comment-item-text">
               {text}
             </p>
           </Col>
         </Row>
       </div>
+      {(this.props.id !== 0) ? horizontalLine : ""}
+    </div>
     );
   }
 }

@@ -1,17 +1,19 @@
+
 import Loader from "react-loader";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import React, { Component } from "react";
 import scrollToComponent from "react-scroll-to-component";
 
-import { getFeed } from "../actions/feed";
+import { getFeed, addComment, removeComment } from "../actions/feed";
 import FeedDetailComponent from "../components/feed_detail/index";
 
 export class FeedDetailContainer extends Component {
   static propTypes = { isLoaded: PropTypes.bool.isRequired,
     feeds: PropTypes.array, feedId: PropTypes.string,
     feedTopSpan: PropTypes.object, feed: PropTypes.object,
-    getFeed: PropTypes.func.isRequired };
+    comments: PropTypes.array, getFeed: PropTypes.func.isRequired,
+    addComment: PropTypes.func.isRequired, removeComment: PropTypes.func.isRequired };
 
   constructor(props) {
     super(props);
@@ -20,6 +22,8 @@ export class FeedDetailContainer extends Component {
     this.scrollToDetailSection = this.scrollToDetailSection.bind(this);
 
     this.handleDetailMounted = this.handleDetailMounted.bind(this);
+    this.handleAddComment = this.handleAddComment.bind(this);
+    this.handleRemoveComment = this.handleRemoveComment.bind(this);
   }
 
   initFeedDetail() {
@@ -28,6 +32,14 @@ export class FeedDetailContainer extends Component {
     if(feedId) {
       this.props.getFeed(feedId);
     }
+  }
+
+  handleAddComment(feedId, body) {
+    this.props.addComment(feedId, body);
+  }
+
+  handleRemoveComment(feedId, commentId) {
+    this.props.removeComment(feedId, commentId);
   }
 
   handleDetailMounted() {
@@ -54,21 +66,30 @@ export class FeedDetailContainer extends Component {
   static mapStateToProps(state) {
     return {
       isLoaded: state.getIn(["FeedDetailReducer", "isLoaded"]),
-      feed: state.getIn(["FeedDetailReducer", "feed"]) };
+      feed: state.getIn(["FeedDetailReducer", "feed"]),
+      comments: state.getIn(["FeedDetailReducer", "comments"])
+    };
   }
 
   static mapDispatchToProps(dispatch) {
     return {
-      getFeed: (id) => dispatch(getFeed(id))
+      getFeed: (id) => dispatch(getFeed(id)),
+      addComment: (feedId, body) => dispatch(addComment(feedId, body)),
+      removeComment: (feedId, commentId) => {
+        return dispatch(removeComment(feedId, commentId));
+      }
     };
   }
 
   renderFeedDetail(feedProps) {
-    const { feed } = feedProps;
+    const { feed, comments } = feedProps;
     return (
       <FeedDetailComponent
         feed={feed}
-        detailMounted={this.handleDetailMounted} />
+        comments={comments}
+        detailMounted={this.handleDetailMounted}
+        addComment={this.handleAddComment}
+        removeComment={this.handleRemoveComment} />
       );
   }
 

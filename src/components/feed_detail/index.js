@@ -4,16 +4,21 @@ import React, { Component } from "react";
 import FeedItemComponent from "./feed_item";
 
 export default class FeedDetailComponent extends Component {
-  static propTypes = { feed: PropTypes.object, detailMounted: PropTypes.func.isRequired };
+  static propTypes = { feed: PropTypes.object, comments: PropTypes.array,
+    addComment: PropTypes.func.isRequired, removeComment: PropTypes.func.isRequired,
+    detailMounted: PropTypes.func.isRequired };
 
   renderItem(feedProps) {
-    const { feed, detailMounted } = feedProps;
+    const { feed, comments, addComment, removeComment, detailMounted } = feedProps;
     if(feed) {
         return (
           <div className="feed-item">
             <FeedItemComponent
               feed={feed}
-              detailMounted={detailMounted} />
+              detailMounted={detailMounted}
+              comments={comments}
+              addComment={addComment}
+              removeComment={removeComment} />
           </div>
         );
     }

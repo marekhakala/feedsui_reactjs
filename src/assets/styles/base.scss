@@ -29,3 +29,14 @@ a {
   border: 2px solid $additional-color !important;
   color: $white-color !important;
 }
+
+.form-error {
+  padding-top: 5px;
+  font-weight: bold;
+  padding-bottom: 2px;
+  color: $additional-color !important;
+}
+
+.horizontal-line {
+  border-bottom: 2px solid $tertiary-color;
+}
